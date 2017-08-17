@@ -1,0 +1,9 @@
+*.pyc
+.cache
+.DS_Store
+.idea
+.python-version
+env
+src/api/vendor/
+pkg
+bin

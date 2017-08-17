@@ -1,0 +1,9 @@
+## busybox<->docker integration ##
+::ctrlaltdel:/bin/kill -QUIT 1
+::restart:/bin/false
+##################################
+
+#::respawn:/usr/sbin/crond -f -d 6
+
+::respawn:/usr/bin/gosu nobody:nobody sh -c 'cd /app; exec /usr/local/bin/api-cli web'
+::respawn:/usr/sbin/nginx

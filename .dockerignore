@@ -1,0 +1,13 @@
+**/.DS_Store
+.cache
+.git
+.idea
+.python-version
+bin
+buildkite-script-*
+env
+pkg
+
+# dont move:
+src/api/vendor
+!src/api/vendor/vendor.json
