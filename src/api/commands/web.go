@@ -9,15 +9,20 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/urfave/cli"
 
+	"api/config"
 	"api/handlers"
 	"api/models"
 )
 
 //noinspection GoUnusedParameter
 func Web(c *cli.Context) error {
-	log.Println("connecting to db")
-	models.SetupDB()
-	log.Println("connected")
+	if config.Config.DatabaseDSN != "" {
+		log.Println("connecting to db")
+		models.SetupDB()
+		log.Println("connected")
+	} else {
+		log.Println("!!! WARNING !!! database not configured")
+	}
 
 	r := gin.Default()
 
