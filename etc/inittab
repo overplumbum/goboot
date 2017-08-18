@@ -5,5 +5,5 @@
 
 #::respawn:/usr/sbin/crond -f -d 6
 
-::respawn:/usr/bin/gosu nobody:nobody sh -c 'cd /app; exec /usr/local/bin/api-cli web'
+::respawn:/sbin/su-exec nobody:nobody sh -c 'cd /app; exec /usr/local/bin/api-cli web'
 ::respawn:/usr/sbin/nginx

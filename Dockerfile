@@ -3,28 +3,24 @@ FROM golang:1.9-alpine
 CMD ["/app/boot.sh"]
 
 RUN set -xeuo pipefail ;\
-    apk add --no-cache ca-certificates git nginx ;\
+    apk add --no-cache ca-certificates git nginx su-exec ;\
     \
     apk add --no-cache --virtual builddeps \
         wget \
     ;\
-    go get -v github.com/kardianos/govendor ;\
-    \
-    wget -nv -O/usr/bin/gosu "https://github.com/tianon/gosu/releases/download/1.10/gosu-amd64" ;\
-    chmod +x /usr/bin/gosu ;\
+    go get -u github.com/golang/dep/cmd/dep ;\
     \
     apk del --purge builddeps ;\
-    mkdir -p /app/src/api/vendor
+    mkdir -p /app/src/api
 
 WORKDIR /app
 ENV GIN_MODE=release API_LISTEN=127.0.0.1:8001 GOPATH=/app
 
-COPY src/api/vendor/vendor.json /app/src/api/vendor/
+COPY src/api/Gopkg.toml src/api/Gopkg.lock /app/src/api/
 
 RUN set -xue ;\
     cd /app/src/api ;\
-    govendor sync -v ;\
-    govendor build -v +vendor
+    dep ensure -vendor-only -v
 
 COPY assets/ assets/
 COPY boot.sh /app/boot.sh

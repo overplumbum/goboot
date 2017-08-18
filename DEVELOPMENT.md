@@ -2,10 +2,10 @@
 
 ```bash
 # cd project root
-brew install golang govendor
+brew install golang dep
 export GOPATH=$PWD
 cd src/api
-govendor sync # can take several minutes
+dep ensure # can take several minutes
 ```
 
 ### Run / Build ###
@@ -20,7 +20,7 @@ make run
 # cd project root
 export GOPATH=$PWD
 cd src/api
-govendor fetch -v github.com/bugsnag/bugsnag-go/gin # with package name
+dep ensure -add github.com/bugsnag/bugsnag-go/gin # with package name
 ```
 
 ### Docker Testing ###
